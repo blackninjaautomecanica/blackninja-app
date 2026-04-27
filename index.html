@@ -285,6 +285,12 @@ canvas{border:1px dashed var(--border2);width:100%;height:90px;display:block;cur
 .badge.gold{background:var(--goldlight);color:var(--gold);border:1px solid #e6d08a;}
 .mt8{margin-top:8px;}
 .mb0{margin-bottom:0;}
+/* ── FOTOS AVARIAS ── */
+.foto-thumb{position:relative;aspect-ratio:1;border-radius:3px;overflow:hidden;border:1px solid var(--border);background:var(--dark);}
+.foto-thumb img{width:100%;height:100%;object-fit:cover;display:block;}
+.foto-thumb .foto-del{position:absolute;top:3px;right:3px;width:20px;height:20px;background:rgba(200,0,26,.9);color:#fff;border:none;border-radius:50%;font-size:12px;cursor:pointer;display:flex;align-items:center;justify-content:center;line-height:1;}
+.foto-thumb .foto-lbl{position:absolute;bottom:0;left:0;right:0;background:rgba(0,0,0,.6);color:#fff;font-family:'Share Tech Mono',monospace;font-size:8px;padding:2px 4px;text-overflow:ellipsis;overflow:hidden;white-space:nowrap;}
+
 /* ── MODO BADGE ── */
 .tb-mode{font-family:'Bebas Neue',sans-serif;font-size:10px;letter-spacing:1px;padding:2px 8px;border-radius:2px;display:inline-block;margin-top:3px;background:var(--red);color:#fff;}
 .tb-mode.desktop{background:var(--blue);}
@@ -446,6 +452,25 @@ canvas{border:1px dashed var(--border2);width:100%;height:90px;display:block;cur
     <div class="divider"></div>
     <table class="ctbl"><thead><tr><th>ITEM</th><th>OK</th><th>⚠</th><th>✖</th><th>N/A</th></tr></thead><tbody id="cond-body"></tbody></table>
     <div class="field mt8"><label>Obs. avarias</label><textarea id="v-avarv" placeholder="Descreva danos visíveis..."></textarea></div>
+
+    <!-- FOTOS DE AVARIAS -->
+    <div style="margin-top:14px;">
+      <label style="font-size:10px;font-weight:700;letter-spacing:1.5px;color:var(--muted);text-transform:uppercase;display:block;margin-bottom:8px;">📷 Fotos das Avarias</label>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:10px;">
+        <button type="button" onclick="document.getElementById('foto-camera').click()" style="display:flex;align-items:center;justify-content:center;gap:8px;padding:12px;background:var(--card);border:1px dashed var(--border2);border-radius:3px;cursor:pointer;font-family:'Bebas Neue',sans-serif;font-size:14px;letter-spacing:1px;color:var(--text);">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M23 19a2 2 0 01-2 2H3a2 2 0 01-2-2V8a2 2 0 012-2h4l2-3h6l2 3h4a2 2 0 012 2z"/><circle cx="12" cy="13" r="4"/></svg>
+          CÂMERA
+        </button>
+        <button type="button" onclick="document.getElementById('foto-galeria').click()" style="display:flex;align-items:center;justify-content:center;gap:8px;padding:12px;background:var(--card);border:1px dashed var(--border2);border-radius:3px;cursor:pointer;font-family:'Bebas Neue',sans-serif;font-size:14px;letter-spacing:1px;color:var(--text);">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+          GALERIA
+        </button>
+      </div>
+      <input type="file" id="foto-camera" accept="image/*" capture="environment" style="display:none" onchange="adicionarFoto(this)">
+      <input type="file" id="foto-galeria" accept="image/*" multiple style="display:none" onchange="adicionarFoto(this)">
+      <div id="fotos-grid" style="display:grid;grid-template-columns:repeat(3,1fr);gap:6px;"></div>
+      <p style="font-family:'Share Tech Mono',monospace;font-size:9px;color:var(--muted);margin-top:6px;" id="fotos-count">Nenhuma foto adicionada</p>
+    </div>
   </div>
 
   <div class="sec">
@@ -478,7 +503,8 @@ canvas{border:1px dashed var(--border2);width:100%;height:90px;display:block;cur
   </div>
 
   <button class="btnpri" onclick="salvarChecklist()">💾 SALVAR CHECKLIST</button>
-  <button class="btnsec" onclick="goPage('budget')">▸ IR PARA ORÇAMENTO</button>
+  <button class="btngrn" onclick="gerarPDFChecklist()" style="background:var(--blue);margin-top:8px;">🖨 GERAR PDF DO CHECKLIST</button>
+  <button class="btnsec" onclick="goPage('budget')" id="btn-ir-orcamento">▸ IR PARA ORÇAMENTO</button>
 
 </div>
 </div>
@@ -1039,12 +1065,11 @@ function gerarNovoOrcamento() {
 function salvarChecklist() {
   if (!document.getElementById('c-nome').value) { toast('Preencha o nome do cliente!','err'); return; }
   const ck = coletarChecklist();
-  // Salva pendente no localStorage
   let pendentes = getPendentes();
-  pendentes = pendentes.filter(p => p.os !== ck.os); // evita duplicata
+  pendentes = pendentes.filter(p => p.os !== ck.os);
   pendentes.push(ck);
   localStorage.setItem('bn_pendentes', JSON.stringify(pendentes));
-  // Sync sheets
+  salvarHistoricoLocal(ck);
   syncSheets({action:'checklist', dados:ck});
   toast('✔ Checklist salvo! O.S.: '+ck.os);
 }
@@ -1673,6 +1698,254 @@ function fmtBRL(v){return 'R$ '+(v||0).toLocaleString('pt-BR',{minimumFractionDi
 
 // ── SERVICE WORKER ──
 if('serviceWorker'in navigator) window.addEventListener('load',()=>navigator.serviceWorker.register('./sw.js').catch(()=>{}));
+
+// ══════════════════════════════════════════════════════════
+// FOTOS DE AVARIAS
+// ══════════════════════════════════════════════════════════
+let fotosAvarias = []; // [{base64, nome}]
+
+function adicionarFoto(input) {
+  const files = Array.from(input.files);
+  if (!files.length) return;
+  files.forEach(file => {
+    if (fotosAvarias.length >= 10) { toast('Máximo de 10 fotos atingido', 'warn'); return; }
+    const reader = new FileReader();
+    reader.onload = e => {
+      const b64 = e.target.result;
+      fotosAvarias.push({ base64: b64, nome: file.name });
+      renderFotos();
+    };
+    reader.readAsDataURL(file);
+  });
+  input.value = ''; // reset para permitir nova foto igual
+}
+
+function renderFotos() {
+  const grid = document.getElementById('fotos-grid');
+  const count = document.getElementById('fotos-count');
+  count.textContent = fotosAvarias.length === 0
+    ? 'Nenhuma foto adicionada'
+    : `${fotosAvarias.length} foto(s) adicionada(s)`;
+  grid.innerHTML = fotosAvarias.map((f, i) => `
+    <div class="foto-thumb">
+      <img src="${f.base64}" alt="Avaria ${i+1}">
+      <button class="foto-del" onclick="removerFoto(${i})">✕</button>
+      <div class="foto-lbl">Avaria ${i+1}</div>
+    </div>`).join('');
+}
+
+function removerFoto(idx) {
+  fotosAvarias.splice(idx, 1);
+  renderFotos();
+}
+
+// ══════════════════════════════════════════════════════════
+// PDF DO CHECKLIST
+// ══════════════════════════════════════════════════════════
+function gerarPDFChecklist() {
+  const { jsPDF } = window.jspdf;
+  const doc = new jsPDF({ orientation: 'portrait', unit: 'mm', format: 'a4' });
+  const W = 210, M = 14;
+  let y = 0;
+  const RED = [200, 0, 26], DARK = [20, 20, 20], GOLD = [201, 168, 76], GRAY = [120, 120, 120], GREEN = [0, 122, 48];
+  const cfg = getCfg();
+  const now2 = new Date();
+
+  // ── HEADER ──
+  doc.setFillColor(...DARK); doc.rect(0, 0, W, 36, 'F');
+  doc.setFillColor(...RED); doc.rect(0, 36, W, 2, 'F');
+
+  // Logo embeddado (se disponível)
+  try {
+    const logoB64 = document.querySelector('.tb-logo img')?.src;
+    if (logoB64) doc.addImage(logoB64, 'JPEG', M, 6, 22, 22);
+  } catch(e) {
+    doc.setFillColor(...RED); doc.rect(M, 6, 22, 22, 'F');
+    doc.setFont('helvetica', 'bold'); doc.setFontSize(13); doc.setTextColor(255,255,255);
+    doc.text('BN', M+11, 20, {align:'center'});
+  }
+
+  doc.setFontSize(17); doc.setFont('helvetica','bold'); doc.setTextColor(255,255,255);
+  doc.text((cfg.nome||'BLACK NINJA AUTO MECANICA').toUpperCase(), M+26, 13);
+  doc.setFontSize(7); doc.setTextColor(...RED);
+  doc.text('CHECKLIST DE ENTRADA DE VEÍCULO', M+26, 19);
+  doc.setTextColor(160,160,160);
+  if (cfg.tel) doc.text('WhatsApp: '+cfg.tel, M+26, 25);
+  if (cfg.end) doc.text(cfg.end, M+26, 30);
+
+  // OS e data
+  doc.setFontSize(8); doc.setTextColor(...GOLD);
+  doc.text('Nº '+currentOS, W-M, 13, {align:'right'});
+  doc.setTextColor(160,160,160);
+  doc.text('Data: '+(document.getElementById('v-data').value||now2.toLocaleDateString('pt-BR')), W-M, 19, {align:'right'});
+  doc.text('Hora: '+(document.getElementById('v-hora').value||''), W-M, 25, {align:'right'});
+  y = 44;
+
+  function secH(t) {
+    doc.setFillColor(...RED); doc.rect(M, y, 3, 6, 'F');
+    doc.setFillColor(245,245,245); doc.rect(M+3, y, W-M*2-3, 6, 'F');
+    doc.setFontSize(9); doc.setFont('helvetica','bold'); doc.setTextColor(...DARK);
+    doc.text(t, M+6, y+4.2); y += 9;
+  }
+  function r2(l1, v1, l2, v2) {
+    const hw = (W-M*2)/2-3;
+    doc.setFontSize(7); doc.setFont('helvetica','normal'); doc.setTextColor(...GRAY);
+    doc.text(l1, M, y);
+    doc.setFont('helvetica','bold'); doc.setTextColor(30,30,30); doc.setFontSize(9);
+    doc.text(String(v1||'—'), M, y+4);
+    doc.setFontSize(7); doc.setFont('helvetica','normal'); doc.setTextColor(...GRAY);
+    doc.text(l2, M+hw+6, y);
+    doc.setFont('helvetica','bold'); doc.setTextColor(30,30,30); doc.setFontSize(9);
+    doc.text(String(v2||'—'), M+hw+6, y+4);
+    y += 9;
+  }
+
+  // ── CLIENTE ──
+  secH('DADOS DO CLIENTE');
+  r2('NOME', document.getElementById('c-nome').value, 'TELEFONE/WHATSAPP', document.getElementById('c-tel').value);
+  if (document.getElementById('c-email').value) r2('E-MAIL', document.getElementById('c-email').value, '', '');
+  y += 2;
+
+  // ── VEÍCULO ──
+  secH('DADOS DO VEÍCULO');
+  const placa = document.getElementById('v-placa').value;
+  const marca = document.getElementById('v-marca').value;
+  const modelo = document.getElementById('v-modelo').value;
+  const ano = document.getElementById('v-ano').value;
+  const cor = document.getElementById('v-cor').value;
+  const km = document.getElementById('v-km').value;
+  const comb = document.querySelector('input[name="comb"]:checked');
+  r2('PLACA', placa, 'VEÍCULO', [marca,modelo,ano,cor].filter(Boolean).join(' '));
+  r2('QUILOMETRAGEM', km+' km', 'COMBUSTÍVEL', comb?comb.value:'—');
+  r2('RESPONSÁVEL', document.getElementById('v-resp').value, '', '');
+  y += 2;
+
+  // ── SERVIÇOS ──
+  const servicos = [...document.querySelectorAll('#serv-chk input:checked')].map(x=>x.value);
+  if (servicos.length) {
+    secH('SERVIÇOS SOLICITADOS');
+    doc.setFontSize(8); doc.setFont('helvetica','normal'); doc.setTextColor(30,30,30);
+    const ls = doc.splitTextToSize(servicos.join('  |  '), W-M*2);
+    doc.text(ls, M, y); y += ls.length*4+4;
+  }
+
+  // ── PROBLEMA ──
+  const prob = document.getElementById('v-prob').value;
+  if (prob) {
+    y += 2;
+    doc.setFontSize(7); doc.setFont('helvetica','normal'); doc.setTextColor(...GRAY);
+    doc.text('PROBLEMA RELATADO:', M, y); y += 4;
+    doc.setFont('helvetica','normal'); doc.setTextColor(30,30,30); doc.setFontSize(8);
+    const ls = doc.splitTextToSize(prob, W-M*2);
+    doc.text(ls, M, y); y += ls.length*4+4;
+  }
+
+  // ── ESTADO DE CONSERVAÇÃO ──
+  y += 2;
+  secH('ESTADO DE CONSERVAÇÃO');
+  const condRows = [];
+  condItens.forEach((item, i) => {
+    const r = document.querySelector(`input[name="cond_${i}"]:checked`);
+    condRows.push([item, r ? r.value : '—']);
+  });
+  // Split em 2 colunas
+  const half = Math.ceil(condRows.length / 2);
+  const col1 = condRows.slice(0, half);
+  const col2 = condRows.slice(half);
+  const cw = (W-M*2)/2 - 4;
+  const rowH = 5.5;
+  col1.forEach((row, i) => {
+    const cx2 = col2[i];
+    // Col 1
+    doc.setFontSize(7.5); doc.setFont('helvetica','normal'); doc.setTextColor(60,60,60);
+    doc.text(row[0], M, y+3.5);
+    const staCol1 = row[1]==='OK'?GREEN:row[1]==='ATENÇÃO'?[200,140,0]:row[1]==='DANIF.'?RED:GRAY;
+    doc.setFont('helvetica','bold'); doc.setTextColor(...staCol1);
+    doc.text(row[1], M+cw-2, y+3.5, {align:'right'});
+    // Col 2
+    if (cx2) {
+      doc.setFont('helvetica','normal'); doc.setTextColor(60,60,60);
+      doc.text(cx2[0], M+cw+8, y+3.5);
+      const staCol2 = cx2[1]==='OK'?GREEN:cx2[1]==='ATENÇÃO'?[200,140,0]:cx2[1]==='DANIF.'?RED:GRAY;
+      doc.setFont('helvetica','bold'); doc.setTextColor(...staCol2);
+      doc.text(cx2[1], W-M, y+3.5, {align:'right'});
+    }
+    doc.setDrawColor(220,220,220); doc.setLineWidth(0.2);
+    doc.line(M, y+rowH, W-M, y+rowH);
+    y += rowH;
+    // Nova página se necessário
+    if (y > 260) { doc.addPage(); y = 20; }
+  });
+  y += 4;
+
+  // ── AVARIAS ──
+  const avarv = document.getElementById('v-avarv').value;
+  if (avarv) {
+    secH('OBSERVAÇÕES SOBRE AVARIAS');
+    const ls = doc.splitTextToSize(avarv, W-M*2);
+    doc.setFontSize(8); doc.setFont('helvetica','normal'); doc.setTextColor(30,30,30);
+    doc.text(ls, M, y); y += ls.length*4+4;
+  }
+
+  // ── ITENS NO VEÍCULO ──
+  const itens = [...document.querySelectorAll('.ich input:checked')].map(x=>x.value);
+  if (itens.length) {
+    y += 2; secH('ITENS PRESENTES NO VEÍCULO');
+    doc.setFontSize(8); doc.setFont('helvetica','normal'); doc.setTextColor(30,30,30);
+    const ls = doc.splitTextToSize(itens.join('  ·  '), W-M*2);
+    doc.text(ls, M, y); y += ls.length*4+4;
+  }
+  const outros = document.getElementById('v-outros').value;
+  if (outros) {
+    doc.setFontSize(7); doc.setTextColor(...GRAY); doc.text('Outros: ', M, y);
+    doc.setTextColor(30,30,30); doc.text(outros, M+14, y); y += 6;
+  }
+
+  // ── FOTOS ──
+  if (fotosAvarias.length > 0) {
+    if (y > 200) { doc.addPage(); y = 20; }
+    y += 2; secH(`FOTOS DAS AVARIAS (${fotosAvarias.length})`);
+    const fotoW = (W-M*2-8) / 3;
+    const fotoH = fotoW * 0.75;
+    fotosAvarias.forEach((foto, i) => {
+      if (y + fotoH + 12 > 270) { doc.addPage(); y = 20; }
+      const col = i % 3;
+      const fx = M + col * (fotoW+4);
+      if (col === 0 && i > 0) y += fotoH + 8;
+      try {
+        doc.addImage(foto.base64, 'JPEG', fx, y, fotoW, fotoH);
+        doc.setFontSize(6.5); doc.setFont('helvetica','normal'); doc.setTextColor(...GRAY);
+        doc.text(`Foto ${i+1}`, fx + fotoW/2, y+fotoH+3, {align:'center'});
+      } catch(e) {}
+    });
+    y += fotoH + 10;
+  }
+
+  // ── ASSINATURA ──
+  if (y > 230) { doc.addPage(); y = 20; }
+  y = Math.max(y, 230);
+  doc.setDrawColor(...DARK); doc.setLineWidth(0.3);
+  doc.line(M, y, M+65, y);
+  doc.setFontSize(7); doc.setFont('helvetica','normal'); doc.setTextColor(...GRAY);
+  doc.text('Assinatura do Cliente', M, y+4);
+  doc.line(W-M-65, y, W-M, y);
+  doc.text(cfg.nome||'Black Ninja Auto Mecânica', W-M-65, y+4);
+  // Canvas da assinatura
+  try {
+    const sd = canvas.toDataURL('image/png');
+    if (sd && sd.length > 100) doc.addImage(sd, 'PNG', M, y-18, 60, 16);
+  } catch(e) {}
+
+  // ── RODAPÉ ──
+  doc.setFillColor(...DARK); doc.rect(0, 287, W, 10, 'F');
+  doc.setFontSize(6.5); doc.setFont('helvetica','normal'); doc.setTextColor(...GOLD);
+  doc.text((cfg.nome||'BLACK NINJA AUTO MECANICA').toUpperCase()+' | Especializada Suzuki e Mitsubishi', W/2, 293, {align:'center'});
+  doc.setTextColor(100,100,100);
+  doc.text('Checklist Nº: '+currentOS+' | '+now2.toLocaleDateString('pt-BR'), W/2, 297, {align:'center'});
+
+  doc.save(`Checklist_BN_${placa||'veiculo'}_${currentOS}.pdf`);
+  toast('✔ PDF do checklist gerado!');
+}
 
 // ══════════════════════════════════════════════════════════
 // ORÇAMENTOS PRONTOS — CELULAR
