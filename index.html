@@ -320,6 +320,36 @@ canvas{border:1px dashed var(--border2);width:100%;height:90px;display:block;cur
 .orc-det-row{display:flex;justify-content:space-between;padding:3px 0;border-bottom:1px solid var(--border);font-size:11px;}
 .orc-det-row:last-child{border-bottom:none;}
 
+/* ── MODAL ALERTAS DE RETORNO ── */
+.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:500;display:flex;align-items:flex-end;justify-content:center;padding:0;}
+.modal-box{background:var(--card);width:100%;max-width:520px;max-height:85vh;border-radius:12px 12px 0 0;overflow:hidden;display:flex;flex-direction:column;animation:slideUp .3s ease;}
+@keyframes slideUp{from{transform:translateY(100%);}to{transform:translateY(0);}}
+.modal-header{background:#1a1a1a;padding:16px 18px;display:flex;align-items:center;gap:12px;flex-shrink:0;}
+.modal-header-icon{width:40px;height:40px;background:var(--gold);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0;}
+.modal-header-text h2{font-family:'Bebas Neue',sans-serif;font-size:18px;letter-spacing:2px;color:#f0f0f0;}
+.modal-header-text p{font-family:'Share Tech Mono',monospace;font-size:9px;color:#888;margin-top:2px;}
+.modal-close{margin-left:auto;background:none;border:none;color:#888;font-size:22px;cursor:pointer;padding:4px;line-height:1;}
+.modal-body{overflow-y:auto;padding:14px;flex:1;}
+.modal-footer{padding:12px 14px;border-top:1px solid var(--border);flex-shrink:0;}
+/* Card de alerta individual */
+.ret-card{background:var(--card2);border:1px solid var(--border);border-radius:3px;padding:12px;margin-bottom:8px;border-left:3px solid var(--gold);}
+.ret-card.urgente{border-left-color:var(--red);}
+.ret-card-head{display:flex;align-items:center;gap:10px;margin-bottom:8px;}
+.ret-avatar{width:34px;height:34px;background:var(--gold);border-radius:2px;font-family:'Bebas Neue',sans-serif;font-size:14px;color:#fff;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.ret-avatar.urgente{background:var(--red);}
+.ret-nome{font-size:13px;font-weight:700;color:var(--text);}
+.ret-info{font-family:'Share Tech Mono',monospace;font-size:9px;color:var(--muted);margin-top:2px;line-height:1.5;}
+.ret-dias{font-family:'Bebas Neue',sans-serif;font-size:22px;line-height:1;margin-left:auto;text-align:right;}
+.ret-dias small{display:block;font-family:'Share Tech Mono',monospace;font-size:8px;color:var(--muted);font-size:8px;}
+.ret-servicos{font-size:11px;color:var(--muted);margin-bottom:10px;}
+.ret-btns{display:grid;grid-template-columns:1fr 1fr;gap:6px;}
+.ret-btn-wapp{display:flex;align-items:center;justify-content:center;gap:6px;padding:10px;background:#25D366;color:#fff;border:none;border-radius:3px;cursor:pointer;font-family:'Bebas Neue',sans-serif;font-size:14px;letter-spacing:1px;text-decoration:none;}
+.ret-btn-wapp svg{width:16px;height:16px;fill:#fff;flex-shrink:0;}
+.ret-btn-ign{display:flex;align-items:center;justify-content:center;gap:6px;padding:10px;background:var(--dark);border:1px solid var(--border);color:var(--muted);border-radius:3px;cursor:pointer;font-family:'Bebas Neue',sans-serif;font-size:14px;letter-spacing:1px;}
+/* Badge contador */
+.nav-badge{position:absolute;top:6px;right:50%;transform:translateX(8px);background:var(--red);color:#fff;font-family:'Share Tech Mono',monospace;font-size:8px;font-weight:700;min-width:16px;height:16px;border-radius:8px;display:flex;align-items:center;justify-content:center;padding:0 3px;}
+.nb{position:relative;}
+
 /* ── CHECKLISTS SALVOS ── */
 .ck-card{background:var(--card);border:1px solid var(--border);border-radius:3px;padding:12px;margin-bottom:8px;box-shadow:0 1px 3px rgba(0,0,0,.06);}
 .ck-card-head{display:flex;align-items:flex-start;gap:10px;margin-bottom:8px;}
@@ -340,6 +370,63 @@ canvas{border:1px dashed var(--border2);width:100%;height:90px;display:block;cur
 .ck-badge-novo{background:var(--greenlight);color:var(--green);border:1px solid #a3d9b8;font-family:'Share Tech Mono',monospace;font-size:8px;padding:1px 6px;border-radius:10px;margin-left:6px;}
 .ck-badge-edit{background:var(--goldlight);color:var(--gold);border:1px solid #e6d08a;font-family:'Share Tech Mono',monospace;font-size:8px;padding:1px 6px;border-radius:10px;margin-left:6px;}
 
+/* ── ESTOQUE ── */
+.est-search-bar{display:flex;gap:8px;margin-bottom:10px;}
+.est-search-bar input{flex:1;}
+.est-filtros{display:flex;gap:6px;margin-bottom:12px;overflow-x:auto;padding-bottom:2px;}
+.est-filtro{font-family:'Share Tech Mono',monospace;font-size:10px;padding:4px 12px;border:1px solid var(--border);background:var(--card);color:var(--muted);cursor:pointer;border-radius:12px;white-space:nowrap;flex-shrink:0;transition:all .15s;}
+.est-filtro.ativo{background:var(--red);border-color:var(--red);color:#fff;}
+/* Card de produto */
+.prod-card{background:var(--card);border:1px solid var(--border);border-radius:3px;padding:12px;margin-bottom:8px;box-shadow:0 1px 3px rgba(0,0,0,.05);}
+.prod-card.alerta{border-left:3px solid var(--red);}
+.prod-card.ok{border-left:3px solid var(--green);}
+.prod-card.zerado{border-left:3px solid var(--muted2);}
+.prod-head{display:flex;align-items:flex-start;gap:10px;margin-bottom:8px;}
+.prod-icon{width:36px;height:36px;background:var(--dark);border-radius:2px;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0;}
+.prod-nome{font-size:14px;font-weight:700;color:var(--text);line-height:1.2;}
+.prod-cod{font-family:'Share Tech Mono',monospace;font-size:9px;color:var(--muted);margin-top:2px;}
+.prod-precos{display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px;margin-bottom:8px;}
+.prod-preco-box{background:var(--card2);border:1px solid var(--border);border-radius:2px;padding:6px 8px;text-align:center;}
+.prod-preco-lbl{font-family:'Share Tech Mono',monospace;font-size:8px;color:var(--muted);display:block;}
+.prod-preco-val{font-family:'Bebas Neue',sans-serif;font-size:16px;color:var(--text);display:block;}
+.prod-preco-val.venda{color:var(--green);}
+.prod-estoque{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;}
+.prod-qtd-wrap{display:flex;align-items:center;gap:8px;}
+.prod-qtd-num{font-family:'Bebas Neue',sans-serif;font-size:28px;line-height:1;}
+.prod-qtd-unid{font-family:'Share Tech Mono',monospace;font-size:10px;color:var(--muted);}
+.prod-qtd-min{font-family:'Share Tech Mono',monospace;font-size:9px;color:var(--muted);}
+.prod-alerta-badge{font-family:'Share Tech Mono',monospace;font-size:9px;padding:3px 8px;border-radius:10px;}
+.prod-alerta-badge.critico{background:var(--redlight);color:var(--red);border:1px solid #f5b3b3;}
+.prod-alerta-badge.baixo{background:var(--goldlight);color:var(--gold);border:1px solid #e6d08a;}
+.prod-alerta-badge.ok{background:var(--greenlight);color:var(--green);border:1px solid #a3d9b8;}
+.prod-alerta-badge.zero{background:#f0f0f0;color:var(--muted2);border:1px solid var(--border);}
+.prod-acoes{display:grid;grid-template-columns:1fr 1fr 1fr;gap:5px;}
+.prod-acao{display:flex;align-items:center;justify-content:center;gap:4px;padding:8px 4px;border-radius:2px;border:none;cursor:pointer;font-family:'Bebas Neue',sans-serif;font-size:12px;letter-spacing:.5px;}
+.prod-acao svg{width:13px;height:13px;stroke:currentColor;fill:none;stroke-width:2;}
+.prod-acao.entrada{background:var(--greenlight);color:var(--green);border:1px solid #a3d9b8;}
+.prod-acao.editar{background:var(--bluelight);color:var(--blue);border:1px solid #b3c6f7;}
+.prod-acao.excluir{background:var(--redlight);color:var(--red);border:1px solid #f5b3b3;}
+/* Busca no orçamento */
+.peca-busca-wrap{position:relative;}
+.peca-busca-drop{display:none;position:absolute;top:100%;left:0;right:0;background:var(--card);border:1px solid var(--border);border-top:none;border-radius:0 0 3px 3px;z-index:100;max-height:220px;overflow-y:auto;box-shadow:0 4px 12px rgba(0,0,0,.1);}
+.peca-busca-drop.open{display:block;}
+.peca-drop-item{padding:9px 12px;cursor:pointer;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;gap:8px;}
+.peca-drop-item:last-child{border-bottom:none;}
+.peca-drop-item:active{background:var(--card2);}
+.peca-drop-nome{font-size:13px;font-weight:600;color:var(--text);}
+.peca-drop-cod{font-family:'Share Tech Mono',monospace;font-size:9px;color:var(--muted);}
+.peca-drop-preco{font-family:'Bebas Neue',sans-serif;font-size:14px;color:var(--green);white-space:nowrap;}
+.peca-drop-qtd{font-family:'Share Tech Mono',monospace;font-size:9px;color:var(--muted);text-align:right;}
+/* Modal cadastro produto */
+.form-modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:600;display:flex;align-items:flex-end;justify-content:center;}
+.form-modal-box{background:var(--card);width:100%;max-width:520px;max-height:90vh;border-radius:12px 12px 0 0;overflow-y:auto;padding:20px 16px 32px;}
+.form-modal-title{font-family:'Bebas Neue',sans-serif;font-size:20px;letter-spacing:3px;color:var(--text);margin-bottom:16px;display:flex;align-items:center;justify-content:space-between;}
+/* Resumo estoque */
+.est-resumo{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin-bottom:16px;}
+.est-res-box{background:var(--card);border:1px solid var(--border);border-radius:2px;padding:8px;text-align:center;}
+.est-res-box strong{font-family:'Bebas Neue',sans-serif;font-size:20px;display:block;}
+.est-res-box span{font-family:'Share Tech Mono',monospace;font-size:8px;color:var(--muted);}
+
 ::-webkit-scrollbar{width:4px;}
 ::-webkit-scrollbar-track{background:var(--bg);}
 ::-webkit-scrollbar-thumb{background:#bbb;border-radius:2px;}
@@ -358,7 +445,7 @@ canvas{border:1px dashed var(--border2);width:100%;height:90px;display:block;cur
   <div class="tb-right">
     <span>O.S.</span>
     <strong id="top-os">—</strong>
-    <span id="tb-mode-badge" class="tb-mode">CELULAR</span>
+    <span id="mode-badge" class="tb-mode">📱 CELULAR</span>
   </div>
 </div>
 
@@ -625,7 +712,33 @@ canvas{border:1px dashed var(--border2);width:100%;height:90px;display:block;cur
       <div class="field"><label>Prazo Entrega</label><input type="text" id="prazo" placeholder="Ex: 3 dias úteis"></div>
     </div>
     <div class="field"><label>Forma de Pagamento</label>
-      <select id="forma-pg"><option value="">Selecione</option><option>Dinheiro</option><option>PIX</option><option>Cartão de Débito</option><option>Cartão de Crédito</option><option>Transferência</option><option>A combinar</option></select>
+      <select id="forma-pg" onchange="toggleParcelas()">
+        <option value="">Selecione</option>
+        <option>Dinheiro</option>
+        <option>PIX</option>
+        <option>Cartão de Débito</option>
+        <option>Cartão de Crédito</option>
+        <option>Transferência</option>
+        <option>A combinar</option>
+      </select>
+    </div>
+    <div class="field" id="parcelas-wrap" style="display:none;">
+      <label>Número de Parcelas</label>
+      <select id="parcelas">
+        <option value="1">1x à vista</option>
+        <option value="2">2x</option>
+        <option value="3">3x</option>
+        <option value="4">4x</option>
+        <option value="5">5x</option>
+        <option value="6">6x</option>
+        <option value="7">7x</option>
+        <option value="8">8x</option>
+        <option value="9">9x</option>
+        <option value="10">10x</option>
+        <option value="11">11x</option>
+        <option value="12">12x</option>
+      </select>
+      <div id="parcelas-info" style="font-family:'Share Tech Mono',monospace;font-size:10px;color:var(--green);margin-top:5px;"></div>
     </div>
     <div class="field"><label>Observações</label><textarea id="obs-g" placeholder="Garantia, condições especiais..."></textarea></div>
   </div>
@@ -855,6 +968,126 @@ canvas{border:1px dashed var(--border2);width:100%;height:90px;display:block;cur
 </div>
 </div>
 
+<!-- ══════════════════ PAGE: ESTOQUE ══════════════════ -->
+<div class="page" id="page-estoque">
+<div class="pi">
+
+  <!-- Resumo -->
+  <div class="est-resumo" id="est-resumo"></div>
+
+  <!-- Alertas de estoque baixo -->
+  <div id="est-alertas"></div>
+
+  <!-- Busca e filtros -->
+  <div class="est-search-bar">
+    <input type="text" id="est-q" placeholder="Buscar por nome ou código…" oninput="renderEstoque()">
+    <button onclick="abrirFormProduto()" style="background:var(--red);color:#fff;border:none;padding:0 14px;border-radius:2px;font-family:'Bebas Neue',sans-serif;font-size:16px;letter-spacing:1px;cursor:pointer;white-space:nowrap;flex-shrink:0;">+ NOVO</button>
+  </div>
+  <div class="est-filtros">
+    <button class="est-filtro ativo" id="ef-todos" onclick="setEstFiltro('todos',this)">Todos</button>
+    <button class="est-filtro" id="ef-alerta" onclick="setEstFiltro('alerta',this)">⚠ Estoque Baixo</button>
+    <button class="est-filtro" id="ef-ok" onclick="setEstFiltro('ok',this)">✔ Em estoque</button>
+    <button class="est-filtro" id="ef-zerado" onclick="setEstFiltro('zerado',this)">✖ Zerado</button>
+  </div>
+
+  <div id="est-lista"></div>
+
+</div>
+</div>
+
+<!-- MODAL: CADASTRO / EDIÇÃO DE PRODUTO -->
+<div class="form-modal-overlay" id="modal-produto" style="display:none;" onclick="fecharFormProduto(event)">
+  <div class="form-modal-box">
+    <div class="form-modal-title">
+      <span id="modal-prod-titulo">NOVO PRODUTO</span>
+      <button onclick="fecharFormProduto()" style="background:none;border:none;font-size:22px;cursor:pointer;color:var(--muted);">✕</button>
+    </div>
+
+    <input type="hidden" id="prod-edit-id">
+
+    <div class="field"><label>Nome / Descrição *</label><input type="text" id="prod-nome" placeholder="Ex: Óleo Motor 5W30, Filtro de Ar Suzuki Jimny"></div>
+    <div class="g2">
+      <div class="field"><label>Código / Part Number</label><input type="text" id="prod-cod" placeholder="Ex: OLM5W30-1L"></div>
+      <div class="field"><label>Fornecedor</label><input type="text" id="prod-forn" placeholder="Ex: Distribuidora XYZ"></div>
+    </div>
+    <div class="g2">
+      <div class="field"><label>Unidade de Medida</label>
+        <select id="prod-unid">
+          <option value="un">un — Unidade</option>
+          <option value="lt">lt — Litro</option>
+          <option value="kg">kg — Quilograma</option>
+          <option value="mt">mt — Metro</option>
+          <option value="par">par — Par</option>
+          <option value="jg">jg — Jogo</option>
+          <option value="cx">cx — Caixa</option>
+          <option value="fr">fr — Frasco</option>
+          <option value="gl">gl — Galão</option>
+        </select>
+      </div>
+      <div class="field"><label>Categoria</label>
+        <select id="prod-cat">
+          <option value="oleo">Óleo / Fluido</option>
+          <option value="filtro">Filtro</option>
+          <option value="freio">Freio</option>
+          <option value="suspensao">Suspensão</option>
+          <option value="motor">Motor</option>
+          <option value="eletrico">Elétrico</option>
+          <option value="transmissao">Transmissão</option>
+          <option value="pneu">Pneu / Roda</option>
+          <option value="outros">Outros</option>
+        </select>
+      </div>
+    </div>
+
+    <!-- Preços -->
+    <div style="background:var(--card2);border:1px solid var(--border);border-radius:3px;padding:12px;margin-bottom:12px;">
+      <div style="font-family:'Bebas Neue',sans-serif;font-size:13px;letter-spacing:2px;color:var(--text);margin-bottom:10px;">PREÇOS</div>
+      <div class="g3">
+        <div class="field mb0"><label>Custo Unit. (R$) *</label><input type="number" id="prod-custo" placeholder="0,00" min="0" step="0.01" oninput="calcPrecoVenda()"></div>
+        <div class="field mb0"><label>Margem (%)</label><input type="number" id="prod-margem" placeholder="30" min="0" step="1" value="30" oninput="calcPrecoVenda()"></div>
+        <div class="field mb0"><label>Preço de Venda</label>
+          <input type="number" id="prod-venda" placeholder="0,00" min="0" step="0.01" oninput="calcMargemFromVenda()" style="color:var(--green);font-weight:700;">
+        </div>
+      </div>
+      <div style="margin-top:8px;font-family:'Share Tech Mono',monospace;font-size:9px;color:var(--muted);">
+        Altere custo ou margem → venda calculada. Ou informe a venda → margem calculada.
+      </div>
+    </div>
+
+    <!-- Estoque -->
+    <div style="background:var(--card2);border:1px solid var(--border);border-radius:3px;padding:12px;margin-bottom:12px;">
+      <div style="font-family:'Bebas Neue',sans-serif;font-size:13px;letter-spacing:2px;color:var(--text);margin-bottom:10px;">ESTOQUE</div>
+      <div class="g3">
+        <div class="field mb0"><label>Qtd. Atual *</label><input type="number" id="prod-qtd" placeholder="0" min="0" step="0.1"></div>
+        <div class="field mb0"><label>Qtd. Mínima</label><input type="number" id="prod-qtd-min" placeholder="2" min="0" step="0.1"></div>
+        <div class="field mb0"><label>Localização</label><input type="text" id="prod-local" placeholder="Ex: Prateleira A3"></div>
+      </div>
+    </div>
+
+    <div class="field"><label>Observações</label><textarea id="prod-obs" placeholder="Compatibilidade, marca preferencial, etc..." style="min-height:50px;"></textarea></div>
+
+    <button onclick="salvarProduto()" style="width:100%;padding:14px;font-family:'Bebas Neue',sans-serif;font-size:18px;letter-spacing:3px;color:#fff;background:var(--red);border:none;border-radius:2px;cursor:pointer;margin-top:4px;">💾 SALVAR PRODUTO</button>
+  </div>
+</div>
+
+<!-- MODAL: ENTRADA DE ESTOQUE -->
+<div class="form-modal-overlay" id="modal-entrada" style="display:none;" onclick="fecharEntrada(event)">
+  <div class="form-modal-box" style="max-height:60vh;">
+    <div class="form-modal-title">
+      <span>ENTRADA DE ESTOQUE</span>
+      <button onclick="fecharEntrada()" style="background:none;border:none;font-size:22px;cursor:pointer;color:var(--muted);">✕</button>
+    </div>
+    <div id="entrada-prod-info" style="background:var(--card2);border:1px solid var(--border);border-radius:2px;padding:10px;margin-bottom:14px;font-family:'Share Tech Mono',monospace;font-size:11px;color:var(--muted);"></div>
+    <div class="g2">
+      <div class="field"><label>Quantidade a Adicionar *</label><input type="number" id="entrada-qtd" placeholder="0" min="0.1" step="0.1"></div>
+      <div class="field"><label>Novo Custo Unit. (R$)</label><input type="number" id="entrada-custo" placeholder="Mantém atual" min="0" step="0.01"></div>
+    </div>
+    <div class="field"><label>Nota Fiscal / Referência</label><input type="text" id="entrada-nf" placeholder="Ex: NF 12345"></div>
+    <input type="hidden" id="entrada-prod-id">
+    <button onclick="confirmarEntrada()" style="width:100%;padding:14px;font-family:'Bebas Neue',sans-serif;font-size:18px;letter-spacing:3px;color:#fff;background:var(--green);border:none;border-radius:2px;cursor:pointer;margin-top:4px;">✔ CONFIRMAR ENTRADA</button>
+  </div>
+</div>
+
 <!-- BOTTOM NAV -->
 <nav class="botnav">
   <button class="nb active" id="nav-checklist" onclick="goPage('checklist')">
@@ -866,11 +1099,18 @@ canvas{border:1px dashed var(--border2);width:100%;height:90px;display:block;cur
   <button class="nb" id="nav-budget" onclick="goPage('budget')">
     <svg viewBox="0 0 24 24"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg>ORÇAMENTO
   </button>
+  <button class="nb" id="nav-estoque" onclick="goPage('estoque');renderEstoque()" style="display:none;">
+    <svg viewBox="0 0 24 24"><path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg>
+    <span id="badge-estoque" style="display:none;position:absolute;top:5px;right:calc(50% - 18px);background:var(--red);color:#fff;font-family:'Share Tech Mono',monospace;font-size:8px;font-weight:700;min-width:16px;height:16px;border-radius:8px;align-items:center;justify-content:center;padding:0 3px;">0</span>
+    ESTOQUE
+  </button>
   <button class="nb" id="nav-orcamentos" onclick="goPage('orcamentos');renderOrcs()" style="display:none;">
     <svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81a19.79 19.79 0 01-3.07-8.67A2 2 0 012 1h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 8.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>ENVIAR
   </button>
   <button class="nb" id="nav-history" onclick="goPage('history');renderHist('')">
-    <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>HISTÓRICO
+    <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+    <span id="badge-retorno" style="display:none;position:absolute;top:5px;right:calc(50% - 18px);background:var(--red);color:#fff;font-family:'Share Tech Mono',monospace;font-size:8px;font-weight:700;min-width:16px;height:16px;border-radius:8px;align-items:center;justify-content:center;padding:0 3px;">0</span>
+    HISTÓRICO
   </button>
   <button class="nb" id="nav-settings" onclick="goPage('settings')">
     <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83-2.83l.06-.06A1.65 1.65 0 004.68 15a1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 012.83-2.83l.06.06A1.65 1.65 0 009 4.68a1.65 1.65 0 001-1.51V3a2 2 0 014 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 2.83l-.06.06A1.65 1.65 0 0019.4 9a1.65 1.65 0 001.51 1H21a2 2 0 010 4h-.09a1.65 1.65 0 00-1.51 1z"/></svg>CONFIG
@@ -879,6 +1119,27 @@ canvas{border:1px dashed var(--border2);width:100%;height:90px;display:block;cur
 </div>
 
 <div class="toast" id="toast"></div>
+
+<!-- ══════════════════ MODAL: ALERTAS DE RETORNO ══════════════════ -->
+<div class="modal-overlay" id="modal-retorno" style="display:none;" onclick="fecharModalRetorno(event)">
+  <div class="modal-box">
+    <div class="modal-header">
+      <div class="modal-header-icon">🔔</div>
+      <div class="modal-header-text">
+        <h2>CLIENTES PARA RETORNO</h2>
+        <p id="modal-retorno-subtitulo">Verificando...</p>
+      </div>
+      <button class="modal-close" onclick="fecharModalRetorno()">✕</button>
+    </div>
+    <div class="modal-body" id="modal-retorno-body">
+    </div>
+    <div class="modal-footer">
+      <button onclick="ignorarTodosRetorno()" style="width:100%;padding:11px;font-family:'Bebas Neue',sans-serif;font-size:15px;letter-spacing:2px;color:var(--muted);background:var(--dark);border:1px solid var(--border);border-radius:2px;cursor:pointer;">
+        LEMBRAR AMANHÃ
+      </button>
+    </div>
+  </div>
+</div>
 
 <script>
 // ══════════════════════════════════════════════════════════
@@ -948,19 +1209,22 @@ function goPage(name) {
 // ══════════════════════════════════════════════════════════
 function setModo(modo) {
   localStorage.setItem('bn_modo', modo);
-  const badge = document.getElementById('tb-mode-badge');
+  const badge = document.getElementById('mode-badge');
   const navBudget = document.getElementById('nav-budget');
   const navEnviar = document.getElementById('nav-orcamentos');
+  const navEstoque = document.getElementById('nav-estoque');
   if (modo === 'celular') {
     badge.textContent = '📱 CELULAR';
     badge.className = 'tb-mode';
     navBudget.style.display = 'none';
-    if(navEnviar) navEnviar.style.display = '';
+    navEstoque.style.display = 'none';
+    if (navEnviar) navEnviar.style.display = '';
   } else {
     badge.textContent = '💻 DESKTOP';
     badge.className = 'tb-mode desktop';
     navBudget.style.display = '';
-    if(navEnviar) navEnviar.style.display = 'none';
+    navEstoque.style.display = '';
+    if (navEnviar) navEnviar.style.display = 'none';
   }
 }
 function loadModo() {
@@ -991,7 +1255,13 @@ function addPeca(dados) {
   div.className = 'pecarow'; div.id = `peca-${id}`;
   div.innerHTML = `
     <div class="prh">
-      <input type="text" placeholder="Descrição da peça" id="pd-${id}" style="flex:1;padding:7px 8px;font-size:13px;">
+      <div class="peca-busca-wrap" style="flex:1;position:relative;">
+        <input type="text" placeholder="🔍 Buscar no estoque ou digitar peça…" id="pd-${id}"
+          style="width:100%;padding:7px 8px;font-size:13px;"
+          oninput="buscarProdutoEstoque(this.value,${id})"
+          autocomplete="off">
+        <div class="peca-busca-drop" id="pdrop-${id}"></div>
+      </div>
       <span class="prv" id="pv-${id}">R$ 0,00</span>
       <button class="btnrm" onclick="removePeca(${id})">✖</button>
     </div>
@@ -1000,12 +1270,12 @@ function addPeca(dados) {
       <div class="field mb0"><label>Fornecedor</label><input type="text" id="pf-${id}" placeholder="Fornecedor"></div>
     </div>
     <div class="pg3" style="margin-top:6px;">
-      <div class="field mb0"><label>Qtd.</label><input type="number" id="pq-${id}" value="${dados?.qtd??1}" min="1" step="1" oninput="recalcRow(${id})"></div>
+      <div class="field mb0"><label>Qtd.</label><input type="number" id="pq-${id}" value="${dados?.qtd??1}" min="0.1" step="0.1" oninput="recalcRow(${id})"></div>
       <div class="field mb0"><label>Custo R$</label><input type="number" id="pcu-${id}" placeholder="0,00" min="0" step="0.01" oninput="recalcRow(${id})"></div>
       <div class="field mb0"><label>Margem %</label><input type="number" id="pm-${id}" value="${mg}" min="0" step="1" oninput="recalcRow(${id})"></div>
     </div>`;
   document.getElementById('pecas-wrap').appendChild(div);
-  if(dados){
+  if (dados) {
     document.getElementById(`pd-${id}`).value = dados.desc||'';
     document.getElementById(`pc-${id}`).value = dados.cod||'';
     document.getElementById(`pf-${id}`).value = dados.forn||'';
@@ -1357,7 +1627,14 @@ function coletarDados(statusOverride) {
     servicos, pecas, totalCusto:tc, totalVendaPecas:tv, horasTrabalhadas:h, valorHora:vH, maoDeObra:mao, desconto:dr, total,
     descServicos:document.getElementById('desc-serv').value,
     validade:document.getElementById('val-data').value,
-    formaPgto:document.getElementById('forma-pg').value, prazo:document.getElementById('prazo').value,
+    formaPgto: (() => {
+      const forma = document.getElementById('forma-pg').value;
+      if (forma === 'Cartão de Crédito') {
+        const parc = document.getElementById('parcelas')?.value || '1';
+        return parc === '1' ? 'Cartão de Crédito (à vista)' : `Cartão de Crédito (${parc}x)`;
+      }
+      return forma;
+    })(), prazo:document.getElementById('prazo').value,
     obs:document.getElementById('obs-g').value,
     statusAprov,
     motivoReprov: reprovTipo==='total'?document.getElementById('motivo-txt').value:'',
@@ -1497,6 +1774,10 @@ async function gerarPDFeSync() {
   salvarHistoricoLocal(dados);
   syncSheets(dados);
   gerarPDF(dados);
+  // Baixa automática do estoque se orçamento aprovado
+  if (dados.statusAprov === 'aprovado' && dados.pecas?.length) {
+    baixarEstoqueOrcamento(dados.pecas);
+  }
   toast('✔ PDF gerado e histórico salvo!');
   setTimeout(()=>{
     currentOS=gerarOS();
@@ -2257,6 +2538,41 @@ function salvarChecklistComEdicao() {
   toast('✔ Checklist ' + (jaExiste ? 'atualizado' : 'salvo') + '! O.S.: ' + ck.os);
 }
 
+// ── PARCELAS CARTÃO ──
+function toggleParcelas() {
+  const forma = document.getElementById('forma-pg').value;
+  const wrap = document.getElementById('parcelas-wrap');
+  const isCredito = forma === 'Cartão de Crédito';
+  wrap.style.display = isCredito ? '' : 'none';
+  if (isCredito) atualizarInfoParcelas();
+}
+
+function atualizarInfoParcelas() {
+  const parcelas = parseInt(document.getElementById('parcelas')?.value) || 1;
+  const totEl = document.getElementById('sum-tot');
+  const totalTxt = totEl ? totEl.textContent.replace(/[R$\s.]/g,'').replace(',','.') : '0';
+  const total = parseFloat(totalTxt) || 0;
+  const info = document.getElementById('parcelas-info');
+  if (!info) return;
+  if (parcelas === 1) {
+    info.textContent = '✔ Pagamento à vista no cartão';
+  } else if (total > 0) {
+    info.textContent = `${parcelas}x de ${fmtBRL(total / parcelas)}`;
+  }
+}
+
+// Escuta mudança nas parcelas para atualizar o valor
+setTimeout(() => {
+  const sel = document.getElementById('parcelas');
+  if (sel) sel.addEventListener('change', atualizarInfoParcelas);
+  // Atualiza info parcelas quando total mudar
+  const sumTot = document.getElementById('sum-tot');
+  if (sumTot) {
+    const obs = new MutationObserver(atualizarInfoParcelas);
+    obs.observe(sumTot, {childList:true, characterData:true, subtree:true});
+  }
+}, 500);
+
 // ══════════════════════════════════════════════════════════
 // ORÇAMENTOS PRONTOS — CELULAR
 // ══════════════════════════════════════════════════════════
@@ -2368,10 +2684,497 @@ function baixarPDF(idx) {
   gerarPDF(v.dadosCompletos);
 }
 
+// ══════════════════════════════════════════════════════════
+// ALERTAS DE RETORNO — 6 MESES
+// ══════════════════════════════════════════════════════════
+
+function verificarRetornos() {
+  // Verifica se já mostrou hoje
+  const hoje = new Date().toLocaleDateString('pt-BR');
+  const ultimaVerif = localStorage.getItem('bn_retorno_visto');
+  if (ultimaVerif === hoje) return; // já mostrou hoje
+
+  const hist = getHist();
+  const cfg = getCfg();
+  const agora = new Date();
+  const MESES = 6;
+  const ignorados = JSON.parse(localStorage.getItem('bn_retorno_ignorados') || '[]');
+
+  const alertas = [];
+
+  hist.forEach(cliente => {
+    (cliente.visitas || []).forEach(v => {
+      if (v.statusAprov !== 'aprovado') return;
+      if (!v.data) return;
+
+      // Parse data DD/MM/AAAA
+      const parts = v.data.split('/');
+      if (parts.length !== 3) return;
+      const dataVisita = new Date(+parts[2], +parts[1]-1, +parts[0]);
+      if (isNaN(dataVisita)) return;
+
+      const diffMs = agora - dataVisita;
+      const diffDias = Math.floor(diffMs / (1000*60*60*24));
+      const diffMeses = diffDias / 30;
+
+      // Só alerta se passou 6 meses (180 dias) ou mais
+      if (diffMeses < MESES) return;
+
+      // Chave única para ignorar
+      const chave = `${cliente.id}_${v.os}`;
+      if (ignorados.includes(chave)) return;
+
+      // Verifica se já tem visita mais recente aprovada
+      const temVisitaRecente = (cliente.visitas || []).some(v2 => {
+        if (v2.os === v.os || v2.statusAprov !== 'aprovado') return false;
+        const p2 = (v2.data||'').split('/');
+        if (p2.length !== 3) return false;
+        const d2 = new Date(+p2[2], +p2[1]-1, +p2[0]);
+        return d2 > dataVisita;
+      });
+      if (temVisitaRecente) return;
+
+      alertas.push({
+        clienteId: cliente.id,
+        chave,
+        nome: cliente.nome,
+        tel: cliente.tel,
+        placa: (v.placa || cliente.placa || ''),
+        veiculo: v.veiculo || '',
+        servicos: v.servicos || '',
+        dataVisita: v.data,
+        diffDias,
+        diffMeses: Math.floor(diffMeses),
+        urgente: diffMeses >= 9 // mais de 9 meses = urgente
+      });
+    });
+  });
+
+  // Remove duplicatas (mesmo cliente, mostra só o mais antigo)
+  const unicos = {};
+  alertas.forEach(a => {
+    if (!unicos[a.clienteId] || a.diffDias > unicos[a.clienteId].diffDias) {
+      unicos[a.clienteId] = a;
+    }
+  });
+  const lista = Object.values(unicos).sort((a,b) => b.diffDias - a.diffDias);
+
+  if (!lista.length) return;
+
+  // Atualiza badge do histórico
+  const badge = document.getElementById('badge-retorno');
+  if (badge) { badge.textContent = lista.length; badge.style.display = 'flex'; }
+
+  // Monta modal
+  const subtitulo = document.getElementById('modal-retorno-subtitulo');
+  subtitulo.textContent = `${lista.length} cliente(s) sem retorno há mais de ${MESES} meses`;
+
+  const body = document.getElementById('modal-retorno-body');
+  body.innerHTML = lista.map(a => {
+    const ini = (a.nome||'?').split(' ').slice(0,2).map(n=>n[0]).join('').toUpperCase();
+    const tel = (a.tel||'').replace(/\D/g,'');
+    const msg = montarMsgRetorno(a, cfg);
+    const wappLink = tel
+      ? `https://wa.me/55${tel}?text=${encodeURIComponent(msg)}`
+      : `https://wa.me/?text=${encodeURIComponent(msg)}`;
+    return `<div class="ret-card ${a.urgente?'urgente':''}">
+      <div class="ret-card-head">
+        <div class="ret-avatar ${a.urgente?'urgente':''}">${ini}</div>
+        <div style="flex:1;">
+          <div class="ret-nome">${a.nome}</div>
+          <div class="ret-info">
+            ${a.placa?a.placa+' · ':''}${a.veiculo||'—'}<br>
+            Última visita: ${a.dataVisita}
+          </div>
+        </div>
+        <div class="ret-dias" style="color:${a.urgente?'var(--red)':'var(--gold)'}">
+          ${a.diffMeses}<small>MESES</small>
+        </div>
+      </div>
+      <div class="ret-servicos">🔧 ${a.servicos || '—'}</div>
+      <div class="ret-btns">
+        <a class="ret-btn-wapp" href="${wappLink}" target="_blank" onclick="marcarContatado('${a.chave}')">
+          <svg viewBox="0 0 32 32"><path d="M16 2C8.27 2 2 8.27 2 16c0 2.45.64 4.8 1.86 6.85L2 30l7.36-1.84A13.93 13.93 0 0016 30c7.73 0 14-6.27 14-14S23.73 2 16 2zm0 25.5a11.44 11.44 0 01-5.83-1.6l-.42-.25-4.37 1.09 1.12-4.25-.27-.44A11.5 11.5 0 1116 27.5zm6.32-8.6c-.35-.18-2.06-1.02-2.38-1.13-.32-.12-.55-.18-.78.17-.23.35-.9 1.13-1.1 1.36-.2.23-.4.26-.75.09-.35-.18-1.48-.55-2.82-1.74a10.6 10.6 0 01-1.95-2.43c-.2-.35-.02-.54.15-.71.16-.16.35-.4.52-.6.18-.2.23-.35.35-.58.12-.23.06-.44-.03-.62-.09-.18-.78-1.88-1.07-2.57-.28-.68-.57-.58-.78-.59h-.67c-.23 0-.6.09-.91.44-.32.35-1.2 1.18-1.2 2.88s1.23 3.34 1.4 3.57c.18.23 2.42 3.7 5.87 5.19.82.35 1.46.56 1.96.72.82.26 1.57.22 2.16.13.66-.1 2.06-.84 2.35-1.66.29-.82.29-1.52.2-1.66-.09-.15-.32-.23-.67-.4z"/></svg>
+          WHATSAPP
+        </a>
+        <button class="ret-btn-ign" onclick="ignorarRetorno('${a.chave}')">
+          ✕ IGNORAR
+        </button>
+      </div>
+    </div>`;
+  }).join('');
+
+  // Mostra modal com pequeno delay para o app carregar
+  setTimeout(() => {
+    document.getElementById('modal-retorno').style.display = 'flex';
+  }, 1200);
+}
+
+function montarMsgRetorno(a, cfg) {
+  const nomeOficina = cfg?.nome || 'Black Ninja Auto Mecânica';
+  const telOficina = cfg?.tel || '';
+  return `Olá, ${(a.nome||'').split(' ')[0]}! 👋
+
+🔧 *${nomeOficina}*
+
+Passamos para lembrar que já faz *${a.diffMeses} meses* desde a última revisão do seu veículo ${a.veiculo?`*(${a.veiculo})*`:''} ${a.placa?`- Placa ${a.placa}`:''}!
+
+✅ Revisão feita em: ${a.dataVisita}
+
+É o momento ideal para uma nova revisão preventiva e garantir que tudo esteja em perfeito estado. 🚗
+
+Podemos agendar um horário? Entre em contato conosco!
+${telOficina?`📞 ${telOficina}`:''}
+
+_${nomeOficina}_`;
+}
+
+function marcarContatado(chave) {
+  // Após clicar no WhatsApp, marca como ignorado por 30 dias
+  let ign = JSON.parse(localStorage.getItem('bn_retorno_ignorados') || '[]');
+  if (!ign.includes(chave)) ign.push(chave);
+  localStorage.setItem('bn_retorno_ignorados', JSON.stringify(ign));
+  // Remove o card do modal
+  setTimeout(() => {
+    const cards = document.querySelectorAll('.ret-card');
+    cards.forEach(c => {
+      if (c.innerHTML.includes(chave)) c.remove();
+    });
+    const restantes = document.querySelectorAll('.ret-card').length;
+    if (!restantes) fecharModalRetorno();
+  }, 500);
+}
+
+function ignorarRetorno(chave) {
+  marcarContatado(chave);
+}
+
+function ignorarTodosRetorno() {
+  localStorage.setItem('bn_retorno_visto', new Date().toLocaleDateString('pt-BR'));
+  fecharModalRetorno();
+}
+
+function fecharModalRetorno(event) {
+  if (event && event.target !== document.getElementById('modal-retorno')) return;
+  document.getElementById('modal-retorno').style.display = 'none';
+  localStorage.setItem('bn_retorno_visto', new Date().toLocaleDateString('pt-BR'));
+}
+
+// ══════════════════════════════════════════════════════════
+// MÓDULO DE ESTOQUE
+// ══════════════════════════════════════════════════════════
+const CAT_ICONE = {oleo:'🛢',filtro:'🔲',freio:'🔴',suspensao:'🔧',motor:'⚙️',eletrico:'⚡',transmissao:'⚙',pneu:'⭕',outros:'📦'};
+let estFiltroAtual = 'todos';
+let produtoEmEdicao = null;
+
+// ── Storage ──
+function getEstoque(){try{return JSON.parse(localStorage.getItem('bn_estoque')||'[]');}catch{return[];}}
+function saveEstoque(d){localStorage.setItem('bn_estoque',JSON.stringify(d));}
+
+// ── Filtro ──
+function setEstFiltro(f, btn) {
+  estFiltroAtual = f;
+  document.querySelectorAll('.est-filtro').forEach(b => b.classList.remove('ativo'));
+  btn.classList.add('ativo');
+  renderEstoque();
+}
+
+// ── Render principal ──
+function renderEstoque() {
+  const q = (document.getElementById('est-q')?.value||'').toLowerCase();
+  let prods = getEstoque();
+
+  // Resumo
+  const total = prods.length;
+  const alertas = prods.filter(p => p.qtd <= p.qtdMin && p.qtdMin > 0).length;
+  const zerados = prods.filter(p => p.qtd <= 0).length;
+  const valorTotal = prods.reduce((a,p) => a + (p.qtd * p.custo), 0);
+  const res = document.getElementById('est-resumo');
+  if (res) res.innerHTML = `
+    <div class="est-res-box"><strong>${total}</strong><span>PRODUTOS</span></div>
+    <div class="est-res-box" style="border-color:${alertas?'#f5b3b3':'var(--border)'}"><strong style="color:${alertas?'var(--red)':'var(--text)'}">${alertas}</strong><span>ALERTAS</span></div>
+    <div class="est-res-box"><strong style="color:${zerados?'var(--muted2)':'var(--text)'}">${zerados}</strong><span>ZERADOS</span></div>
+    <div class="est-res-box"><strong style="font-size:14px;">${fmtBRL(valorTotal).replace('R$ ','R$')}</strong><span>VALOR CUSTO</span></div>`;
+
+  // Alertas topo
+  const alertaDiv = document.getElementById('est-alertas');
+  const criticos = prods.filter(p => p.qtd <= p.qtdMin && p.qtdMin > 0);
+  if (alertaDiv && criticos.length) {
+    alertaDiv.innerHTML = `<div style="background:var(--redlight);border:1px solid #f5b3b3;border-radius:3px;padding:10px 12px;margin-bottom:12px;">
+      <div style="font-family:'Bebas Neue',sans-serif;font-size:13px;letter-spacing:1px;color:var(--red);margin-bottom:4px;">⚠ ${criticos.length} PRODUTO(S) COM ESTOQUE BAIXO</div>
+      ${criticos.map(p=>`<div style="font-family:'Share Tech Mono',monospace;font-size:10px;color:var(--text);padding:2px 0;">• ${p.nome} — ${fmtQtd(p.qtd, p.unid)} (mín: ${fmtQtd(p.qtdMin, p.unid)})</div>`).join('')}
+    </div>`;
+  } else if (alertaDiv) alertaDiv.innerHTML = '';
+
+  // Atualiza badge
+  const badge = document.getElementById('badge-estoque');
+  if (badge) { badge.textContent = criticos.length; badge.style.display = criticos.length ? 'flex' : 'none'; }
+
+  // Filtro
+  if (q) prods = prods.filter(p => p.nome.toLowerCase().includes(q) || (p.cod||'').toLowerCase().includes(q));
+  if (estFiltroAtual === 'alerta') prods = prods.filter(p => p.qtd <= p.qtdMin && p.qtdMin > 0);
+  else if (estFiltroAtual === 'ok') prods = prods.filter(p => p.qtd > p.qtdMin);
+  else if (estFiltroAtual === 'zerado') prods = prods.filter(p => p.qtd <= 0);
+
+  const lista = document.getElementById('est-lista');
+  if (!lista) return;
+  if (!prods.length) {
+    lista.innerHTML = `<div class="ck-empty"><svg width="40" height="40" viewBox="0 0 24 24" stroke="var(--muted2)" fill="none" stroke-width="1.5"><path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/></svg><p>Nenhum produto cadastrado.<br>Toque em <strong>+ NOVO</strong> para adicionar.</p></div>`;
+    return;
+  }
+
+  lista.innerHTML = prods.map(p => {
+    const status = p.qtd <= 0 ? 'zerado' : p.qtd <= p.qtdMin && p.qtdMin > 0 ? 'alerta' : 'ok';
+    const statusTxt = {zerado:'SEM ESTOQUE', alerta:'ESTOQUE BAIXO', ok:'EM ESTOQUE'}[status];
+    const statusClass = {zerado:'zero', alerta:'critico', ok:'ok'}[status];
+    const icone = CAT_ICONE[p.cat] || '📦';
+    return `<div class="prod-card ${status}">
+      <div class="prod-head">
+        <div class="prod-icon">${icone}</div>
+        <div style="flex:1;">
+          <div class="prod-nome">${p.nome}</div>
+          <div class="prod-cod">${p.cod?'Cód: '+p.cod+' · ':''}${p.forn||''}</div>
+        </div>
+        <span class="prod-alerta-badge ${statusClass}">${statusTxt}</span>
+      </div>
+      <div class="prod-precos">
+        <div class="prod-preco-box"><span class="prod-preco-lbl">CUSTO UNIT.</span><span class="prod-preco-val">${fmtBRL(p.custo)}</span></div>
+        <div class="prod-preco-box"><span class="prod-preco-lbl">MARGEM</span><span class="prod-preco-val">${p.margem||0}%</span></div>
+        <div class="prod-preco-box"><span class="prod-preco-lbl">VENDA UNIT.</span><span class="prod-preco-val venda">${fmtBRL(p.venda)}</span></div>
+      </div>
+      <div class="prod-estoque">
+        <div class="prod-qtd-wrap">
+          <span class="prod-qtd-num" style="color:${status==='zerado'?'var(--muted2)':status==='alerta'?'var(--red)':'var(--green)'}">${fmtNum(p.qtd)}</span>
+          <span class="prod-qtd-unid">${p.unid||'un'}</span>
+        </div>
+        <div class="prod-qtd-min">Mín: ${fmtNum(p.qtdMin||0)} ${p.unid||'un'}${p.local?' · '+p.local:''}</div>
+      </div>
+      <div class="prod-acoes">
+        <button class="prod-acao entrada" onclick="abrirEntrada('${p.id}')">
+          <svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>ENTRADA
+        </button>
+        <button class="prod-acao editar" onclick="abrirFormProduto('${p.id}')">
+          <svg viewBox="0 0 24 24"><path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>EDITAR
+        </button>
+        <button class="prod-acao excluir" onclick="excluirProduto('${p.id}')">
+          <svg viewBox="0 0 24 24"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 01-2 2H8a2 2 0 01-2-2L5 6"/></svg>EXCLUIR
+        </button>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function fmtQtd(n, unid) { return `${fmtNum(n)} ${unid||'un'}`; }
+function fmtNum(n) { return (n||0).toLocaleString('pt-BR', {minimumFractionDigits:0, maximumFractionDigits:2}); }
+
+// ── Cadastro produto ──
+function abrirFormProduto(id) {
+  const prod = id ? getEstoque().find(p=>p.id===id) : null;
+  produtoEmEdicao = id || null;
+  document.getElementById('modal-prod-titulo').textContent = prod ? 'EDITAR PRODUTO' : 'NOVO PRODUTO';
+  document.getElementById('prod-edit-id').value = id || '';
+  document.getElementById('prod-nome').value = prod?.nome || '';
+  document.getElementById('prod-cod').value = prod?.cod || '';
+  document.getElementById('prod-forn').value = prod?.forn || '';
+  document.getElementById('prod-unid').value = prod?.unid || 'un';
+  document.getElementById('prod-cat').value = prod?.cat || 'outros';
+  document.getElementById('prod-custo').value = prod?.custo || '';
+  document.getElementById('prod-margem').value = prod?.margem ?? 30;
+  document.getElementById('prod-venda').value = prod?.venda || '';
+  document.getElementById('prod-qtd').value = prod?.qtd ?? '';
+  document.getElementById('prod-qtd-min').value = prod?.qtdMin ?? '';
+  document.getElementById('prod-local').value = prod?.local || '';
+  document.getElementById('prod-obs').value = prod?.obs || '';
+  document.getElementById('modal-produto').style.display = 'flex';
+}
+
+function fecharFormProduto(event) {
+  if (event && event.target !== document.getElementById('modal-produto')) return;
+  document.getElementById('modal-produto').style.display = 'none';
+}
+
+function calcPrecoVenda() {
+  const custo = parseFloat(document.getElementById('prod-custo').value) || 0;
+  const margem = parseFloat(document.getElementById('prod-margem').value) || 0;
+  const venda = custo * (1 + margem/100);
+  document.getElementById('prod-venda').value = venda ? venda.toFixed(2) : '';
+}
+
+function calcMargemFromVenda() {
+  const custo = parseFloat(document.getElementById('prod-custo').value) || 0;
+  const venda = parseFloat(document.getElementById('prod-venda').value) || 0;
+  if (custo > 0 && venda > 0) {
+    const margem = ((venda - custo) / custo * 100);
+    document.getElementById('prod-margem').value = margem.toFixed(1);
+  }
+}
+
+function salvarProduto() {
+  const nome = document.getElementById('prod-nome').value.trim();
+  if (!nome) { toast('Informe o nome do produto!','err'); return; }
+  const custo = parseFloat(document.getElementById('prod-custo').value) || 0;
+  const margem = parseFloat(document.getElementById('prod-margem').value) || 0;
+  const venda = parseFloat(document.getElementById('prod-venda').value) || custo*(1+margem/100);
+  const prod = {
+    id: document.getElementById('prod-edit-id').value || 'prod_'+Date.now(),
+    nome, cod: document.getElementById('prod-cod').value.trim(),
+    forn: document.getElementById('prod-forn').value.trim(),
+    unid: document.getElementById('prod-unid').value,
+    cat: document.getElementById('prod-cat').value,
+    custo, margem, venda,
+    qtd: parseFloat(document.getElementById('prod-qtd').value) || 0,
+    qtdMin: parseFloat(document.getElementById('prod-qtd-min').value) || 0,
+    local: document.getElementById('prod-local').value.trim(),
+    obs: document.getElementById('prod-obs').value.trim(),
+    updatedAt: new Date().toISOString()
+  };
+  let est = getEstoque();
+  const idx = est.findIndex(p=>p.id===prod.id);
+  if (idx >= 0) est[idx] = prod; else est.push(prod);
+  saveEstoque(est);
+  syncSheets({action:'estoque_produto', dados:prod});
+  fecharFormProduto();
+  renderEstoque();
+  toast('✔ Produto salvo!');
+}
+
+function excluirProduto(id) {
+  if (!confirm('Excluir este produto do estoque?')) return;
+  saveEstoque(getEstoque().filter(p=>p.id!==id));
+  renderEstoque();
+  toast('Produto excluído');
+}
+
+// ── Entrada de estoque ──
+function abrirEntrada(id) {
+  const p = getEstoque().find(x=>x.id===id);
+  if (!p) return;
+  document.getElementById('entrada-prod-id').value = id;
+  document.getElementById('entrada-prod-info').innerHTML = `<strong>${p.nome}</strong><br>Estoque atual: ${fmtQtd(p.qtd, p.unid)} · Custo atual: ${fmtBRL(p.custo)}`;
+  document.getElementById('entrada-qtd').value = '';
+  document.getElementById('entrada-custo').value = '';
+  document.getElementById('entrada-nf').value = '';
+  document.getElementById('modal-entrada').style.display = 'flex';
+}
+
+function fecharEntrada(event) {
+  if (event && event.target !== document.getElementById('modal-entrada')) return;
+  document.getElementById('modal-entrada').style.display = 'none';
+}
+
+function confirmarEntrada() {
+  const id = document.getElementById('entrada-prod-id').value;
+  const qtd = parseFloat(document.getElementById('entrada-qtd').value);
+  if (!qtd || qtd <= 0) { toast('Informe a quantidade!','err'); return; }
+  const est = getEstoque();
+  const idx = est.findIndex(p=>p.id===id);
+  if (idx < 0) return;
+  est[idx].qtd = (est[idx].qtd || 0) + qtd;
+  const novoCusto = parseFloat(document.getElementById('entrada-custo').value);
+  if (novoCusto > 0) {
+    est[idx].custo = novoCusto;
+    est[idx].venda = novoCusto * (1 + (est[idx].margem||0)/100);
+  }
+  saveEstoque(est);
+  syncSheets({action:'estoque_entrada', dados:{id, qtd, novoCusto: novoCusto||null, nf: document.getElementById('entrada-nf').value, at: new Date().toISOString()}});
+  fecharEntrada();
+  renderEstoque();
+  toast(`✔ +${fmtNum(qtd)} ${est[idx].unid} adicionado(s)!`);
+}
+
+// ── Baixa de estoque ao aprovar orçamento ──
+function baixarEstoqueOrcamento(pecas) {
+  if (!pecas || !pecas.length) return;
+  const est = getEstoque();
+  const baixas = [];
+  pecas.forEach(p => {
+    // Tenta associar por nome ou código
+    const idx = est.findIndex(e =>
+      (p.cod && e.cod && e.cod.toLowerCase() === p.cod.toLowerCase()) ||
+      e.nome.toLowerCase() === (p.desc||'').toLowerCase()
+    );
+    if (idx >= 0) {
+      const qtdAntes = est[idx].qtd;
+      est[idx].qtd = Math.max(0, (est[idx].qtd||0) - (p.qtd||1));
+      baixas.push({nome: est[idx].nome, baixa: p.qtd||1, resto: est[idx].qtd});
+    }
+  });
+  if (baixas.length) {
+    saveEstoque(est);
+    syncSheets({action:'estoque_baixa', dados:{baixas, at: new Date().toISOString()}});
+    // Verifica alertas após baixa
+    const novosAlertas = est.filter(p => p.qtd <= p.qtdMin && p.qtdMin > 0);
+    if (novosAlertas.length) {
+      const badge = document.getElementById('badge-estoque');
+      if (badge) { badge.textContent = novosAlertas.length; badge.style.display = 'flex'; }
+      toast(`⚠ Atenção: ${novosAlertas.length} produto(s) com estoque baixo!`, 'warn');
+    }
+  }
+}
+
+// ── Busca de produto no orçamento (autocomplete) ──
+function buscarProdutoEstoque(query, rowId) {
+  const q = query.toLowerCase();
+  const drop = document.getElementById(`pdrop-${rowId}`);
+  if (!drop) return;
+  if (!q || q.length < 2) { drop.classList.remove('open'); return; }
+  const prods = getEstoque().filter(p =>
+    p.nome.toLowerCase().includes(q) || (p.cod||'').toLowerCase().includes(q)
+  ).slice(0, 8);
+  if (!prods.length) { drop.classList.remove('open'); return; }
+  drop.innerHTML = prods.map(p => `
+    <div class="peca-drop-item" onclick="selecionarProduto('${p.id}','${rowId}')">
+      <div>
+        <div class="peca-drop-nome">${p.nome}</div>
+        <div class="peca-drop-cod">${p.cod?'Cód: '+p.cod+' · ':''}${p.unid||'un'} · Estq: ${fmtNum(p.qtd)}</div>
+      </div>
+      <div>
+        <div class="peca-drop-preco">${fmtBRL(p.venda)}</div>
+        <div class="peca-drop-qtd">venda/${p.unid||'un'}</div>
+      </div>
+    </div>`).join('');
+  drop.classList.add('open');
+}
+
+function selecionarProduto(prodId, rowId) {
+  const p = getEstoque().find(x=>x.id===prodId);
+  if (!p) return;
+  // Preenche os campos da linha do orçamento
+  const descEl = document.getElementById(`pd-${rowId}`);
+  const codEl  = document.getElementById(`pc-${rowId}`);
+  const fornEl = document.getElementById(`pf-${rowId}`);
+  const custoEl= document.getElementById(`pcu-${rowId}`);
+  const margEl = document.getElementById(`pm-${rowId}`);
+  if (descEl) descEl.value = p.nome;
+  if (codEl)  codEl.value  = p.cod || '';
+  if (fornEl) fornEl.value = p.forn || '';
+  if (custoEl)custoEl.value= p.custo || '';
+  if (margEl) margEl.value = p.margem || 30;
+  // Salva referência ao produto para baixa posterior
+  const row = document.getElementById(`peca-${rowId}`);
+  if (row) row.dataset.prodId = prodId;
+  // Fecha dropdown
+  const drop = document.getElementById(`pdrop-${rowId}`);
+  if (drop) drop.classList.remove('open');
+  // Recalcula
+  recalcRow(rowId);
+  toast(`✔ ${p.nome} adicionado`);
+}
+
+// Fecha dropdowns ao clicar fora
+document.addEventListener('click', e => {
+  if (!e.target.closest('.peca-busca-wrap')) {
+    document.querySelectorAll('.peca-busca-drop').forEach(d=>d.classList.remove('open'));
+  }
+});
+
 // ── STARTUP ──
 loadCfg();
 loadModo();
 addPeca();
+renderEstoque();
+// Verifica retornos após carregar (delay para app inicializar)
+setTimeout(verificarRetornos, 1500);
 </script>
 </body>
 </html>
